@@ -170,6 +170,8 @@ def test_pack_corruption(backup, binary):
     pack = max(
         (p for p in (copy / "data").rglob("*") if p.is_file()), key=lambda p: p.stat().st_size
     )
+    # copytree preserves restic's read-only pack permissions on POSIX.
+    pack.chmod(0o600)
     with pack.open("r+b") as handle:
         first = handle.read(1)
         handle.seek(0)

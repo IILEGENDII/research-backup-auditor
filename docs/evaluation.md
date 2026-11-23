@@ -29,6 +29,8 @@ The combined suite passed 78 tests in 39.97 seconds. One file-symlink test skipp
 
 ## Observations
 
+The first Linux integration run passed seven cases and stopped before injecting corruption: the copied pack retained restic's read-only POSIX permissions. The fixture now grants its owner write access to that one disposable copy before flipping a byte. The original pack is never opened for writing.
+
 The fixture inputs comprised a 23-byte CSV, 64 bytes of little-endian doubles and 524,288 random bytes. Snapshot IDs, times, credentials, random bytes and generated directory names vary across runs. The two example reports were written by CLI invocations against the same fresh fixture.
 
 | Scenario | Observed evidence |
